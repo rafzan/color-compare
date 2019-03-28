@@ -1,10 +1,7 @@
-const themeColors = [ "#ffffff", "#000000", "#ff0000", "#00FF00", "#0000FF", "#FFFF00", "#00FFFF", "#FF00FF" ]
-
-function Measure(a, b){
+function measure(a, b){
 	return Math.sqrt( Math.pow((a.r - b.r), 2) + Math.pow((a.g - b.g), 2) + Math.pow((a.b - b.b), 2) );
-}
-
-function Convert(hexColor) {
+}	
+function convert(hexColor) {
 	const hexTest = RegExp(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
 	if (hexTest.test(hexColor)) { 
 		const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexColor);
@@ -16,13 +13,12 @@ function Convert(hexColor) {
 	}
 	return false;
 }
-
-function Compare(colorsArray, colorInput) {
+function compare(colorsArray, colorInput) {
 	let smallestDistance;
 	let smallestDistanceColor;
 
 	colorsArray.map(hex => { 
-		const calc = Measure( Convert(hex), Convert(colorInput) );
+		const calc = measure( convert(hex), convert(colorInput) );
 		if (smallestDistance === undefined) {
 			smallestDistance = calc
 			smallestDistanceColor = hex
@@ -33,12 +29,9 @@ function Compare(colorsArray, colorInput) {
 			}
 		}
 	});	
-
-	console.log(smallestDistance, smallestDistanceColor);
-
-	//console.log(hexTest.test(colorInput));
-	//console.log(colorsArray);
-
+	return obj = {smallestDistance, smallestDistanceColor};
 }
 
-Compare(themeColors, "#FF7755");
+//for test purposes:
+const themeColors = [ "#ffffff", "#000000", "#ff0000", "#00FF00", "#0000FF", "#FFFF00", "#00FFFF", "#FF00FF" ]
+console.log(compare(themeColors, "#FF7755"));
